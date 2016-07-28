@@ -55,6 +55,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIImagePicker
     @IBAction func onTappedLibraryButton(sender: UIButton) {
         imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
         presentViewController(imagePicker, animated: true, completion: nil)
+        endAllEditing()
     }
     
     @IBAction func onTappedCameraButton(sender: UIButton) {
@@ -62,11 +63,13 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIImagePicker
             imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
             presentViewController(imagePicker, animated: true, completion: nil)
         }
+        endAllEditing()
     }
     
     @IBAction func onTappedGoButton(sender: UIButton) {
         let url = NSURL(string: college.urlString)!
         UIApplication.sharedApplication().openURL(url)
+        endAllEditing()
     }
     
     @IBAction func onTappedSaveButton(sender: AnyObject) {
@@ -77,5 +80,10 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIImagePicker
         college.urlString = webAddressTextField.text!
         savedLabel.text = "Saved"
         endAllEditing()
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let dvc = segue.destinationViewController as! MapViewController
+        dvc.university = college
     }
 }
