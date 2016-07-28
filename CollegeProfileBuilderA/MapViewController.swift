@@ -25,10 +25,9 @@ class MapViewController: UIViewController, UITextFieldDelegate {
             }
             else{
                 if placemarks?.count > 1{
-                    print(placemarks!.count)
                     let actionController = UIAlertController(title: "Select a Location", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
                     for i in 0..<placemarks!.count{
-                        let anOption = UIAlertAction(title: "\(self.textField.text!), \(placemarks![i].administrativeArea)", style: .Default) { (action) in
+                        let anOption = UIAlertAction(title: "\(self.textField.text!), \(placemarks![i].administrativeArea!)", style: .Default) { (action) in
                             let placemark : CLPlacemark = placemarks![i] as CLPlacemark!
                             let center = placemark.location!.coordinate
                             let span = MKCoordinateSpanMake(0.1, 0.1)
@@ -61,7 +60,7 @@ class MapViewController: UIViewController, UITextFieldDelegate {
                 if placemarks!.count > 1{
                     let actionController = UIAlertController(title: "Select a Location", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
                     for i in 0..<placemarks!.count{
-                        let anOption = UIAlertAction(title: "\(self.textField.text!), \(placemarks![i].administrativeArea)", style: .Default) { (action) in
+                        let anOption = UIAlertAction(title: "\(self.textField.text!), \(placemarks![i].administrativeArea!)", style: .Default) { (action) in
                             let placemark : CLPlacemark = placemarks![i] as CLPlacemark!
                             let center = placemark.location!.coordinate
                             let span = MKCoordinateSpanMake(0.1, 0.1)
@@ -93,22 +92,4 @@ class MapViewController: UIViewController, UITextFieldDelegate {
         mapView.addAnnotation(pin)
         mapView.setRegion(region, animated: true)
     }
-    
-    func pickCorrectLocation(placemarks : [CLPlacemark], initLocation : String) -> CLPlacemark{
-        if placemarks.count > 1{
-            var placemarkNum = -1
-            let actionController = UIAlertController(title: "Select an Option", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
-            for i in 0..<placemarks.count{
-                let anOption = UIAlertAction(title: "\(initLocation), \(placemarks[i].administrativeArea)", style: .Default) { (action) in
-                    placemarkNum = i
-                }
-                actionController.addAction(anOption)
-            }
-            return placemarks[placemarkNum]
-        }
-        else{
-            return placemarks.first!
-        }
-    }
-
 }
