@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 
 class MapViewController: UIViewController, UITextFieldDelegate {
-
+    
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var textField: UITextField!
     var university : College!
